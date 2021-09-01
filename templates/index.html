@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>TODO</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+
+    <ul>
+        {% for item in nav.top %}
+        <li class = "{{ 'active' if item.is_active else ''}}">
+            <a href = "{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h1 style="text-align: center;">TODO</h1>
+
+    <table id="table">
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>   
+        {% endfor %}  
+    </table>
+
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Task">
+    </form>
+
+
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2021 by <a href='#'>Aneek Roy</a>.
+        {% endblock %}
+    </div>
+
+</div>
+{% endblock %}
