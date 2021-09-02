@@ -1,31 +1,13 @@
 from flask import Flask, render_template, url_for, request, redirect
-#from flask.ext. import Nav
 from flask.globals import request
 from werkzeug.utils import redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 
 app = Flask(__name__)
-# Adding a Navbar using Flask Navigation
-#nav = Navigation(app)
 # Initalizes database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-
-nav.Bar('top', [
-    nav.Item('HOME', 'index'),
-    nav.Item('SETTINGS', 'settings'),
-])
-
-@app.route('/')
-def index():
-    return render_template(index.html)
-
-@app.route('settings')
-def settings():
-    return render_template('settings.html')
-
-
 
 class Todo(db.Model):
     # Integer that references the id of each entry
@@ -81,6 +63,30 @@ def update(id):
 
     else:
         return render_template('update.html', task=task)
+
+@app.route('/cal', methods=['GET', 'POST'])
+def cal():
+    if request.method == 'POST':
+        # do stuff when the form is submitted
+
+        # redirect to end the POST handling
+        # the redirect can be the same route or somewhere else
+        return redirect(url_for('index'))
+    
+    #show the form, it wasn't submitted
+    return render_template('cal.html')
+
+@app.route('/prac', methods = ['GET', 'POST'])
+def pract():
+    if request.method == 'POST':
+        # do stuff when the form is submitted
+
+        # redirect to end the POST handling
+        # the redirect can be the same route or somewhere else
+        return redirect(url_for('index'))
+    
+    #show the form, it wasn't submitted
+    return render_template('prac.html')
 
 
 if __name__ == "__main__":
